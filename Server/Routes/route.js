@@ -64,6 +64,48 @@ router.use(function(req, res, next) {
 router.post('/me', function(req, res) {
 res.send(req.decoded);
 });
+    router.post('/upload_images',(req, res, next)=>{
+    let formidable = require('formidable');
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "./server/uploads";
+    form.maxFieldsSize = 10*1024*1024;
+    form.multiples = true;
+    form.parse(request, (err, fields, files) => {
+        if(err) {
+            response.json({
+                result: "failed",
+                data: {},
+                message: 'Cannot upload images.error is : ${err)'
+            });
+        }
+        var arrayOFFiles = files[""];
+        if(arrayOFFiles.length > 0) {
+            var fileNames = [];
+            arrayOFFiles.foreach((eachFile) =>{
+                fileNames.push(eachFile.path)
+            });
+            response.json({
+                result: "ok",
+                data: fileNames,
+                numberOfImages: fileNames.length,
+                message: "Upload images successfully"
+
+            });
+
+        }else{
+            response.json({
+                result: "failed",
+                data: {},
+                numberOfImages: 0,
+                message:"No image to upload !"
+
+            });
+            
+        }
+            
+    });
+
+});
 
  return router;
  }
