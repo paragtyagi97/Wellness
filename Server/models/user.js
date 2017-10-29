@@ -1,5 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ID = require.uniqueID();
+
+console.log(ID.generate('/uniqueID/ext'));
+
 
 var UserSchema = new Schema({
     Name: { type: String, lowercase: true, required: true },
@@ -11,7 +15,7 @@ var UserSchema = new Schema({
     Speciality: { type: String, lowercase: true, required: true },
     ClinicAddress: { type: String, required: true, lowercare: true, unique: true }, 
     LicenseID: { type: String, lowercase: true, required: true },
-    //PhotoProofofLicense: { type: String, required: true }
+    PhotoProofofLicense: { type: String , required: true }
 
 });
 UserSchema.pre('save', function(next){
