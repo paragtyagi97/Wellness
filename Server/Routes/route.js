@@ -1,6 +1,10 @@
 var User     = require('../models/user');
 var jwt = require('jsonwebtoken');
 var secret = 'meanstack';
+var base64Data;
+
+
+
 
 module.exports = function(router){
 
@@ -16,21 +20,32 @@ router.post('/users', function(req, res){
     user.Speciality = req.body.Speciality;
     user.ClinicAddress = req.body.ClinicAddress;
     user.LicenseID = req.body.LicenseID;
+    user.PhotoProofOFLicencse = req.body.PhotoProofOfLicense;
+
+    user.filepath = "./Server/unqiueID";
     if(req.body.Username == null || req.body.Username == '' || req.body.Password == null || req.body.Password == '' || req.body.Email == null || req.body.Email == '') {
         res.send('Ensure username, email, and password were provided');
 
     } else {
     user.save(function(err){
         if (err) {
-            res.send('Username or Email already exists!')
+            res.send('file not uploaded');
+        } 
+        else {var base64Data = req.rawBody.replace(/^data: type; base64,/, "");
+            require("fs").writeFile("out.png", base64Data, 'base64', function(err){
+            console.log(err);
+            res.send('file uploaded!');
+            
+            });
+        }
+    });
+    }
+
+    if (err) {
+            res.send('Username or Email already exists!');
         } else {
             res.send('user created!');
         }
-
-    
-
-});
-    }
 
 
 });
@@ -64,49 +79,7 @@ router.use(function(req, res, next) {
 router.post('/me', function(req, res) {
 res.send(req.decoded);
 });
-    router.post('/upload_images',(req, res, next)=>{
-    let formidable = require('formidable');
-    var form = new formidable.IncomingForm();
-    form.uploadDir = "./server/uploads";
-    form.maxFieldsSize = 10*1024*1024;
-    form.multiples = true;
-    form.parse(request, (err, fields, files) => {
-        if(err) {
-            response.json({
-                result: "failed",
-                data: {},
-                message: 'Cannot upload images.error is : ${err)'
-            });
-        }
-        var arrayOFFiles = files[""];
-        if(arrayOFFiles.length > 0) {
-            var fileNames = [];
-            arrayOFFiles.foreach((eachFile) =>{
-                fileNames.push(eachFile.path)
-            });
-            response.json({
-                result: "ok",
-                data: fileNames,
-                numberOfImages: fileNames.length,
-                message: "Upload images successfully"
-
-            });
-
-        }else{
-            response.json({
-                result: "failed",
-                data: {},
-                numberOfImages: 0,
-                message:"No image to upload !"
-
-            });
-            
-        }
-            
-    });
-
-});
+    
 
  return router;
  }
-
