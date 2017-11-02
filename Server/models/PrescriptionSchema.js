@@ -3,30 +3,30 @@ var Schema = mongoose.Schema;
 
 
 var historySchema = new Schema({
-	Personal_History : {type : String, required : true },
-	Family_History : {type : String, required : true }, 
+	Personal_History : {type : String },
+	Family_History : {type : String }, 
 				});
 var vitalsSchema = new Schema({
-	Systolic : {type : String, required : true },
-	Diastolic : {type : String, required : true },
-	Pulse : {type : String, required : true },
-	Weight : {type : String, required : true },
-	RespiratoryRate : {type : String, required : true },
-	Temperature : {type : String, required : true },
-	spO2 : {type : String, required : true },
-	Blood_Glucose : {type : String, required : true },
+	Systolic : {type : String},
+	Diastolic : {type : String},
+	Pulse : {type : String},
+	Weight : {type : String },
+	RespiratoryRate : {type : String },
+	Temperature : {type : String},
+	spO2 : {type : String },
+	Blood_Glucose : {type : String },
 				});
 var ImmunizationSchema = new Schema({
-	Name : {type : String, required : true },
-	SNOMEDid : {type : String, required : true },
+	Name : {type : String },
+	SNOMEDid : {type : String},
 			});
 var LabTestSchema = new Schema({
-	Name : {type : String, required : true },
-	Type : {type : String, required : true },
+	Name : {type : String},
+	Type : {type : String },
 			});
 var ProcedureSchema = new Schema({
-	Name : {type : String, required : true },
-	SNOMEDid : {type : String, required : true },
+	Name : {type : String},
+	SNOMEDid : {type : String},
 			});
 
 
@@ -42,20 +42,20 @@ var DandASchema = new Schema({
 
 });
 var AllergySchema = new Schema ({
-	Problem_Name : {type : String, required : true },
-	Diagnosis_Date : {type : String, required : true },
-	Diagnosis_By : {type : String, required : true },
-	Notes : {type : String, required : true },
+	Problem_Name : {type : String },
+	Diagnosis_Date : {type : String },
+	Diagnosis_By : {type : String },
+	Notes : {type : String },
 });
 
 
 var MedicationSchema = new Schema({
-	Date : {type : String, required : true },
-	Medicine_Name : {type : String, required : true },
-	Dosage : {type : String, required : true },
-	Frequency_taken : {type : String, required : true },
-	Strength : {type : String, required : true },
-	Type : {type : String, required : true },
+	Date : {type : String },
+	Medicine_Name : {type : String },
+	Dosage : {type : String },
+	Frequency_taken : {type : String},
+	Strength : {type : String},
+	Type : {type : String},
 
 
 	});
@@ -69,8 +69,8 @@ var MedicationSchema = new Schema({
         History : historySchema,
         Vitals : vitalsSchema,
         DiagnosisandAdvice : DandASchema,
-        Allergies : AllergySchema,
-        Medication : MedicationSchema,
+        Allergies : [AllergySchema],
+        Medication : [MedicationSchema],
         });
     
 
