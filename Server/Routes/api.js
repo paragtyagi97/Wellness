@@ -1,7 +1,6 @@
 var prescription = require('../Models/prescriptionSchema');
 var mongojs = require('mongojs');
 var mongo = require('mongodb');
-var assert = require('assert');
 var mongoose = require('mongoose');
 
 
@@ -62,8 +61,8 @@ router.post("/addprescription", (req, res) =>
     if(req.body.DandASchema== null || req.body.DandASchema =='')
     {
     (req.body.Examination == null || req.body.Examination ==''|| req.body.Problem_Dianosis == null || req.body.Medicine ==''||
-        req.body.Dosage == null || req.body.Dosage ==''|| req.body.Frequency_taken == null || req.body.Frequency_taken ==''||
-        req.body.Strength == null || req.body.Strength ==''|| req.body.Type == null || req.body.Type =='')
+        req.body.OtherAdvice == null || req.body.OtherAdvice ==''|| req.body.Add_Immunization == null || req.body.Add_Immunization ==''||
+        req.body.Add_LabTest == null || req.body.Add_LabTest==''|| req.body.Add_Procedure == null || req.body.Add_Procedure =='')
 
         res.json({success: 'false',message: 'Ensure all details  were provided'});
     }
@@ -100,7 +99,7 @@ else {
 
     //delete prescription with the help of _id
     router.get('/delete/:id', function(req,res, next){
-		prescription.findOne({_id: mongojs.ObjectId(req.params.id)}).remove(function(err){
+		prescription.findOneAndRemove({_id: mongojs.ObjectId(req.params.id)}), (function(err){
         if(err)	res.json(err);
         else { res.json({success: 'true' ,message: 'prescription is removed'}); }
         });
@@ -108,10 +107,9 @@ else {
      
     }); 
 
-     //to retrieve on the basis of doctor_id
     router.get('/retrieve/:id', function(req,res, next){
         
-		prescription.find({prescriptions:req.params.id}, function(err, prescriptions) {
+		prescription.find({doctor_id:req.params.id}, function(err, prescriptions) {
             if(!err){ 
                 res.json(prescriptions);
                 
