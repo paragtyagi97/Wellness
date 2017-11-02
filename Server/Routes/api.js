@@ -1,5 +1,4 @@
 var prescription = require('../Models/prescriptionSchema');
-var mongojs = require('mongojs');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
