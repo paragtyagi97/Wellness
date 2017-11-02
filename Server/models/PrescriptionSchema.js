@@ -36,9 +36,9 @@ var DandASchema = new Schema({
 	Examination :{type : String },
 	Problem_Diagnosis : {type : String, required : true },
 	OtherAdvice : {type : String},
-	Add_Immunization : {type : String },
-	Add_LabTest : {type : String },
-	Add_Procedure : {type : String },
+	Add_Immunization : [ImmunizationSchema],
+	Add_LabTest : [LabTestSchema],
+	Add_Procedure : [ProcedureSchema],
 
 });
 var AllergySchema = new Schema ({
