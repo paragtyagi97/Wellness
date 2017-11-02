@@ -4,18 +4,19 @@ var port = process.env.PORT || 8080;
 var morgan = require('morgan');
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
-
 var router = express.Router();
 var appRoutes = require('./Server/Routes/route')(router);
+var spareRoutes = require('./Server/Routes/api')(router);
 var path = require('path');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(__dirname + '/Public'));
-app.use('/routes', appRoutes);
+app.use('/routes/route', appRoutes);
+app.use('/routes/api',spareRoutes);
 
-
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/page', function(err){
     if (err) {
         console.log('Not connected to the DB: ' + err);
