@@ -108,7 +108,7 @@ else {
 
     router.get('/retrieve/:id', function(req,res, next){
         
-		prescription.find({doctor_id:req.params.id}, function(err, prescriptions) {
+		prescription.findOne({doctor_id:req.params.id}, function(err, prescriptions) {
             if(!err){ 
                 res.json(prescriptions);
                 
