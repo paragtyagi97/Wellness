@@ -18,7 +18,7 @@ var vitalsSchema = new Schema({
 				});
 var ImmunizationSchema = new Schema({
 	Name : {type : String, required : true },
-	Type : {type : String, required : true },
+	SNOMEDid : {type : String, required : true },
 			});
 var LabTestSchema = new Schema({
 	Name : {type : String, required : true },
@@ -26,21 +26,21 @@ var LabTestSchema = new Schema({
 			});
 var ProcedureSchema = new Schema({
 	Name : {type : String, required : true },
-	Type : {type : String, required : true },
+	SNOMEDid : {type : String, required : true },
 			});
 
 
 
 
 var DandASchema = new Schema({
-	Examination :{type : String, required : true },
+	Examination :{type : String },
 	Problem_Diagnosis : {type : String, required : true },
-	OtherAdvice : {type : String, required : true },
-	Add_Immunization : [ImmunizationSchema],
-	Add_LabTest : [LabTestSchema],
-	Add_Procedure : [ProcedureSchema],
+	OtherAdvice : {type : String},
+	Add_Immunization : {type : String },
+	Add_LabTest : {type : String },
+	Add_Procedure : {type : String },
 
-				});
+});
 var AllergySchema = new Schema ({
 	Problem_Name : {type : String, required : true },
 	Diagnosis_Date : {type : String, required : true },
@@ -66,7 +66,7 @@ var MedicationSchema = new Schema({
 
  
     var PrescriptionSchema = new Schema({
-        History : [historySchema],
+        History : historySchema,
         Vitals : vitalsSchema,
         DiagnosisandAdvice : DandASchema,
         Allergies : AllergySchema,
