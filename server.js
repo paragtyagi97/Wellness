@@ -5,16 +5,16 @@ var morgan = require('morgan');
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
 var router = express.Router();
-var appRoutes = require('./Server/Routes/route')(router);
-var spareRoutes = require('./Server/Routes/api')(router);
+var appRoutes = require('./Server/Routes/prescription')(router);
+var spareRoutes = require('./Server/Routes/doctor')(router);
 var path = require('path');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(__dirname + '/Public'));
-app.use('/routes/route', appRoutes);
-app.use('/routes/api',spareRoutes);
+app.use('/routes/priscription', appRoutes);
+app.use('/routes/doctor',spareRoutes);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/page', function(err){
