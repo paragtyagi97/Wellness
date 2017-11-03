@@ -6,13 +6,13 @@ var mongoose = require('mongoose');
 
 
 module.exports = function(router){
-    
-//add prescription entery to the database http://localhost:port/api/prescription/addprescription
+	//add appointment entery to the database http://localhost:port/api/appointments/addAppointment
+
 router.post("/addprescription",function(req, res, next) 
 {
-    var myData = new prescription(req.body);
-
-     // check if variable exists or not
+	// check if variable exists or not
+     var myData = new Appointment(req.body);
+     
     if(req.body.DiagnosisandAdvice.Problem_Diagnosis == null ||req.body.DiagnosisandAdvice.Problem_Diagnosis == '' )
           {
         res.json({success: 'true',message: 'Ensure all details were provided'});
