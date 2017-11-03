@@ -13,7 +13,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(__dirname + '/Public'));
-app.use('/routes/priscription', appRoutes);
+app.use('/routes/prescription', appRoutes);
 app.use('/routes/doctor',spareRoutes);
 
 mongoose.Promise = global.Promise;
