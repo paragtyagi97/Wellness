@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 module.exports = function(router){
     
 //add prescription entery to the database http://localhost:port/api/prescription/addprescription
-router.post("/addprescription", (req, res) => 
+router.post("/addprescription",function(req, res, next) 
 {
     var myData = new prescription(req.body);
 
@@ -41,9 +41,9 @@ else {
      
     }); 
 
-    router.get('/retrieve/:id', function(req,res, next){
+    router.get('/findByID/:id', function(req,res, next){
         
-		prescription.findOne({doctor_id:req.params.id}, function(err, prescriptions) {
+		prescription.findOne({_id:mongojs.ObjectId(req.params.id)}), function(err, prescriptions) {
             if(!err){ 
                 res.json(prescriptions);
                 
@@ -52,7 +52,7 @@ else {
             }
          });
         });
-       router.get('/fetchData/:id', function(req,res){
+       router.get('/findByDoctorID/:doctor_id', function(req,res){
             
                     prescription.findOne({doctor_id:req.id}, function(err, prescriptions) {
                         if(!err){ 
