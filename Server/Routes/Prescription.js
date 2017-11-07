@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 
 
-module.exports = function(router){
+module.exports = function(prescriptionRouter){
 	
 	
 
