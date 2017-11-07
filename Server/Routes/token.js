@@ -1,4 +1,10 @@
-doctorRouter.use(function(req, res, next) {
+var jwt = require('jsonwebtoken');
+var secret = 'meanstack';
+
+
+module.exports = function(router){
+
+    router.use(function(req, res, next) {
     var token = req.body.token || req.body.query || req.headers['x-access-token'];
     if (token) {
 
@@ -23,6 +29,11 @@ doctorRouter.use(function(req, res, next) {
 
 
 
-doctorRouter.post('/me', function(req, res) {
-    res.json({success: true, message: req.decoded});
-});
+    router.post('/me', function(req, res) {
+        res.json({success: true, message: req.decoded});
+    });
+
+
+ return router;
+    
+ };
