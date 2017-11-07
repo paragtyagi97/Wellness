@@ -8,8 +8,8 @@ var mongoose = require('mongoose');
 
 module.exports = function(router1){
     
-//add appointment entery to the database http://localhost:port/api/add/appointment
-router1.post("/addAppointment", (req, res) => {
+//add appointment entery to the database http://localhost:port/api/appointments/addAppointment
+appointmentRouter.post("/addAppointment", (req, res) => {
     var myData = new Appointment(req.body);
     
 
@@ -33,7 +33,7 @@ router1.post("/addAppointment", (req, res) => {
 
 
     //delete appointment with the help of _id
-    router1.get('/delete/:id', function(req,res, next){
+    appointmentRouter.get('/delete/:id', function(req,res, next){
 		Appointment.findOne({_id: mongojs.ObjectId(req.params.id)}).remove(function(err){
         if(err)	res.json(err);
         else { res.json({success: 'true' ,message: 'appointment is canceled'}); }
@@ -43,7 +43,7 @@ router1.post("/addAppointment", (req, res) => {
     }); 
 
      //to retrieve on the basis of doctor_id
-    router1.get('/retrieve/:id', function(req,res, next){
+    appointmentRouter.get('/retrieve/:id', function(req,res, next){
         
 		Appointment.find({doctor_id: req.params.id}, function(err, appointments) {
             if(!err){ 
@@ -58,5 +58,5 @@ router1.post("/addAppointment", (req, res) => {
     
     
 
-   return router1;   
+   return appointmentRouter;   
 };
