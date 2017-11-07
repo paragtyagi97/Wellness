@@ -2,9 +2,9 @@ var Patient = require('../Models/patient');
 var mongojs = require('mongojs');
 
 
-module.exports = function(router2){
+module.exports = function(patientRouter){
      //patient basic registeration http://localhost:port/patients/register
-    router2.post('/register', function(req, res){
+    patientRouter.post('/register', function(req, res){
         var patient = new Patient(req.body);
 
 
@@ -25,7 +25,7 @@ module.exports = function(router2){
     }); 
   
     //patient basic registeration http://localhost:port/patients/authenticate
-   router2.post('/authenticate', function(req, res){
+   patientRouter.post('/authenticate', function(req, res){
         Patient.findOne({username: req.body.username}).select('email username password').exec(function(err, user){
             if (err) throw err;
             if(!user) {
@@ -48,7 +48,7 @@ module.exports = function(router2){
     });
       
  
-router2.put('/:id', function(req, res){
+patientRouter.put('/:id', function(req, res){
      var patient = {
         username: req.body.username,
           name: {
@@ -100,7 +100,7 @@ router2.put('/:id', function(req, res){
 });
 
 
-return router2; 
+return patientRouter; 
 };
 
 
