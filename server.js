@@ -5,15 +5,15 @@ var morgan = require('morgan');
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
 var router = express.Router();
-var docterRouter = express.Router();
+var doctorRouter = express.Router();
 var appointmentRouter = express.Router();
 var patientRouter = express.Router();
 var prescriptionRouter = express.Router();
-var doctorRoutes = require('./Server/Routes/doctorRoute')(doctorRouter);
+var doctorRoutes = require('./Server/Routes/doctor')(doctorRouter);
 var appointmentRoutes = require('./Server/Routes/appointment')(appointmentRouter);
 var patientRoutes = require('./Server/Routes/patient')(patientRouter);
 var prescriptionRoutes = require('./Server/Routes/prescription')(prescriptionRouter);
-var spareRoutes = require('./Server/Routes/doctor')(router);
+
 var path = require('path');
 
 app.use(morgan('dev'));
@@ -23,8 +23,8 @@ app.use(express.static(__dirname + '/Public'));
 app.use('/api/patients',patientRoutes);
 app.use('/api/doctors',doctorRoutes);
 app.use('/api/appointments',appointmentRoutes);
-app.use('/routes/prescription', prescriptionRoutes);
-app.use('/routes/doctor',spareRoutes);
+app.use('/api/prescription', prescriptionRoutes);
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/page', function(err){
