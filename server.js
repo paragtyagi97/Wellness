@@ -20,9 +20,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(__dirname + '/Public'));
-app.use('/api/patients',patientRoutes);
-app.use('/api/doctors',doctorRoutes);
-app.use('/api/appointments',appointmentRoutes);
+app.use('/api/patient',patientRoutes);
+app.use('/api/doctor',doctorRoutes);
+app.use('/api/appointment',appointmentRoutes);
 app.use('/api/prescription', prescriptionRoutes);
 
 
