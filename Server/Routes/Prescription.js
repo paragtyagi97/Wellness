@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 
 module.exports = function(router){
 	
-	//add appointment entery to the database http://localhost:port/api/appointments/addAppointment
+	
 
 prescriptionRouter.post("/addprescription",function(req, res, next) 
 {
@@ -33,7 +33,7 @@ else {
         }
    });
 
-    //delete prescription with the help of _id
+    
     prescriptionRouter.get('/delete/:id', function(req,res, next){
 		prescription.findOneAndRemove({_id: mongojs.ObjectId(req.params.id)}), (function(err){
         if(err)	res.json(err);
