@@ -1,4 +1,4 @@
-var User     = require('../models/user');
+var User     = require('../models/doctor');
 var jwt = require('jsonwebtoken');
 var secret = 'meanstack';
 var base64Data;
