@@ -15,7 +15,16 @@ var DoctorSchema = new Schema({
     Speciality: { type: String, lowercase: true, required: true },
     ClinicAddress: { type: String, required: true, lowercare: true, unique: true }, 
     LicenseID: { type: String, lowercase: true, required: true },
-    PhotoProofofLicense: { type: String , required: true }
+    PhotoProofofLicense: { type: String , required: true },
+    doctor_qualification: {type: String},
+    experience: [{
+                 from: {type: String},
+                 to: {type: String},
+                 hospital: {type: String},
+                 post: {type: String},
+                 description: {type: String},
+                 active  : {type: Boolean, default: false}
+                }]
 
 });
 DoctorSchema.pre('save', function(next){
