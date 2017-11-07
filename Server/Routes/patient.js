@@ -3,49 +3,7 @@ var mongojs = require('mongojs');
 
 
 module.exports = function(patientRouter){
-     //patient basic registeration http://localhost:port/patients/register
-    patientRouter.post('/register', function(req, res){
-        var patient = new Patient(req.body);
-
-
-        if (req.body.username == null || req.body.username == '' || req.body.dob == null || req.body.dob == '' || req.body.email == null || req.body.email == ''
-        || req.body.email == null || req.body.email == '' || req.body.contactNumber == null || req.body.contactNumber == ''){
-            res.json({success: 'false',message: 'Ensure username, email, contact number and date of bierth were provided'});
-        } else {
-        patient.save(function(err){
-            if (err) {
-                res.json({success: 'false',message: 'email already exists!'});//because email attribute set to unique
-            } else {
-                res.json({success: 'true',message: 'Patient registered'});
-            }
-        });
-      
-       }
-
-    }); 
-  
-    //patient basic registeration http://localhost:port/patients/authenticate
-   patientRouter.post('/authenticate', function(req, res){
-        Patient.findOne({username: req.body.username}).select('email username password').exec(function(err, user){
-            if (err) throw err;
-            if(!user) {
-                res.json({success: false,mesage: 'Could not authenticate user'});
-            } else if(user) {
-                if(req.body.password) {
-              var validPassword =  user.comparePassword(req.body.password); }
-               else {
-                res.json({success: false,mesage: 'No password provided'});
-               }
-              if(!validPassword) {
-                  res.json({success: false, message: 'Could not authenticate password'});
-              } else {
-                res.json({success: true, message: 'user authenticated'  });
-              }
-            
-            }
-        });
-        
-    });
+     
       
  
 patientRouter.put('/:id', function(req, res){
