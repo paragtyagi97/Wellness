@@ -69,5 +69,5 @@ else {
     
     
 
-   return router;   
+   return prescriptionRouter;   
 };
