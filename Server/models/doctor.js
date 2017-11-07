@@ -5,7 +5,7 @@ var ID = require.uniqueID();
 console.log(ID.generate('/uniqueID/ext'));
 
 
-var UserSchema = new Schema({
+var DoctorSchema = new Schema({
     Name: { type: String, lowercase: true, required: true },
     Phone: { type: Number, required: true },
     Email: { type: String, required: true, lowercase: true, unique: true },
@@ -18,7 +18,7 @@ var UserSchema = new Schema({
     PhotoProofofLicense: { type: String , required: true }
 
 });
-UserSchema.pre('save', function(next){
+DoctorSchema.pre('save', function(next){
   var user = this;
   bcrypt.hash(user.Password, null, null, function(err, hash){
   if (err) return next(err);
@@ -28,11 +28,11 @@ UserSchema.pre('save', function(next){
 });
 });
 
-UserSchema.methods.comparePassword = function(Password) {
+DoctorSchema.methods.comparePassword = function(Password) {
   return bcrypt.compareSync(Password, this.Password);
 
 };
 
 
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Doctor', DoctorSchema);
