@@ -5,38 +5,38 @@ var base64Data;
 var id = require('uniqueid');
 var fs = require("fs");
 
-module.exports = function(doctorRouter){
+module.exports = function(router){
 
-doctorRouter.post('/users', function(req, res){
+    router.post('/users', function(req, res){
     
-    if(req.body.Username == null || req.body.Username == '' || req.body.Password == null || req.body.Password == '' || req.body.Email == null || req.body.Email == '') {
-        res.json({success: true, message: 'Ensure username, email, and password were provided'});
-    } else {
-        
-        if(!req.body.File) {
-            res.json({success: false, message: "Photo Proof is mendatory"});
-            return;
-        }
- 
-        var file;
-        
-        req.body.PhotoProofOFLicencse = 'Uploads/' + id.generate() + '.'+ path.extname(req.body.File.FileName);
-        
-        file = req.body.File;
-        delete req.body.File;
+        if(req.body.Username == null || req.body.Username == '' || req.body.Password == null || req.body.Password == '' || req.body.Email == null || req.body.Email == '') {
+            res.json({success: true, message: 'Ensure username, email, and password were provided'});
+        } else {
 
-        var user = new User(req.body);
-        
-        user.save(function(err){
-            if (err) console.log(err);
-            else {
-                var imageBuffer = new Buffer(file.base64, 'base64');
-                fs.writeFile(req.body.PhotoProofOFLicencse, imageBuffer, 'base64', function(err){
-                    if (err) console.log(err);
-                        res.json({success: true, message: "User has been created successfuly"});
-                });
+            if(!req.body.File) {
+                res.json({success: false, message: "Photo Proof is mendatory"});
+                return;
             }
-        });
+
+            var file;
+
+            req.body.PhotoProofOFLicencse = 'Uploads/' + id.generate() + '.'+ path.extname(req.body.File.FileName);
+
+            file = req.body.File;
+            delete req.body.File;
+
+            var user = new User(req.body);
+
+            user.save(function(err){
+                if (err) console.log(err);
+                else {
+                    var imageBuffer = new Buffer(file.base64, 'base64');
+                    fs.writeFile(req.body.PhotoProofOFLicencse, imageBuffer, 'base64', function(err){
+                        if (err) console.log(err);
+                            res.json({success: true, message: "User has been created successfuly"});
+                    });
+                }
+            });
     }
 
     if (err) {
@@ -46,11 +46,11 @@ doctorRouter.post('/users', function(req, res){
         }
 
 
-});
+    });
 
 
 
-    doctorRouter.post('/authenticate', function(req, res){
+    router.post('/authenticate', function(req, res){
         User.findOne({username: req.body.username}).select('email username password').exec(function(err, user){
             if (err) throw err;
             if(!user) {
@@ -71,6 +71,7 @@ doctorRouter.post('/users', function(req, res){
         });
     });
 
- return doctorRouter;
+ return router;
+    
  };
 
