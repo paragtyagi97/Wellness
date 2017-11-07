@@ -1,41 +1,38 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
+var ID = require.uniqueID();
+
+console.log(ID.generate('/uniqueID/ext'));
 
 
-var DoctorSchema = new Schema({
-    username: {type: String, lowercase: true, required: true, unique: true},
-    password: {type: String, required: true},
-    email: {type: String, required: true, lowercase: true, unique: true},
-    doctor_id: {type: String, required: true},
-    contact_number: {type: String, unique: true},
-    doctor_qualification: {type: String},
-    experience: [{
-                 from: {type: String},
-                 to: {type: String},
-                 hospital: {type: String},
-                 post: {type: String},
-                 description: {type: String},
-                 active  : {type: Boolean, default: false}
-                }]
+var UserSchema = new Schema({
+    Name: { type: String, lowercase: true, required: true },
+    Phone: { type: Number, required: true },
+    Email: { type: String, required: true, lowercase: true, unique: true },
+    UserName: { type: String, lowercase: true, required: true },
+    Password: { type: String, required: true },
+    ClinicName: { type: String, lowercase: true, required: true },
+    Speciality: { type: String, lowercase: true, required: true },
+    ClinicAddress: { type: String, required: true, lowercare: true, unique: true }, 
+    LicenseID: { type: String, lowercase: true, required: true },
+    PhotoProofofLicense: { type: String , required: true }
+
+});
+UserSchema.pre('save', function(next){
+  var user = this;
+  bcrypt.hash(user.Password, null, null, function(err, hash){
+  if (err) return next(err);
+  user.Password = hash;
+  next();
+
+});
 });
 
-DoctorSchema.pre('save', function(next){
-var user= this;
-bcrypt.hash(user.password,null,null,function(err, hash){
-    if (err) return next(err);
-    user.password = hash;
-    next();
-});
-});
+UserSchema.methods.comparePassword = function(Password) {
+  return bcrypt.compareSync(Password, this.Password);
 
-DoctorSchema.methods.comparePassword = function(password){
-    return bcrypt.compareSync(password, this.password);
 };
 
 
 
-
-
-
-module.exports = mongoose.model('Doctor', DoctorSchema);
+module.exports = mongoose.model('User', UserSchema);
