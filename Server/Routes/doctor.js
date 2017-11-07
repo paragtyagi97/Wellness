@@ -5,7 +5,7 @@ var base64Data;
 var id = require('uniqueid');
 var fs = require("fs");
 
-module.exports = function(router){
+module.exports = function(doctorRouter){
 
 doctorRouter.post('/users', function(req, res){
     
@@ -77,7 +77,7 @@ doctorRouter.use(function(req, res, next) {
 doctorRouter.post('/me', function(req, res) {
     res.json({success: true, message: req.decoded});
 });
-    router.post('/authenticate', function(req, res){
+    doctorRouter.post('/authenticate', function(req, res){
         User.findOne({username: req.body.username}).select('email username password').exec(function(err, user){
             if (err) throw err;
             if(!user) {
@@ -98,5 +98,5 @@ doctorRouter.post('/me', function(req, res) {
         });
     });
 
- return router;
+ return doctorRouter;
  };
