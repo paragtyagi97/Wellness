@@ -1,13 +1,13 @@
-var User     = require('../models/user');
+var User     = require('../models/doctor');
 var jwt = require('jsonwebtoken');
 var secret = 'meanstack';
 var base64Data;
 var id = require('uniqueid');
 var fs = require("fs");
 
-module.exports = function(router){
+module.exports = function(doctorRouter){
 
-router.post('/users', function(req, res){
+doctorRouter.post('/users', function(req, res){
     
     if(req.body.Username == null || req.body.Username == '' || req.body.Password == null || req.body.Password == '' || req.body.Email == null || req.body.Email == '') {
         res.json({success: true, message: 'Ensure username, email, and password were provided'});
@@ -49,7 +49,7 @@ router.post('/users', function(req, res){
 });
 
 
-router.use(function(req, res, next) {
+doctorRouter.use(function(req, res, next) {
     var token = req.body.token || req.body.query || req.headers['x-access-token'];
     if (token) {
 
@@ -74,10 +74,29 @@ router.use(function(req, res, next) {
 
 
 
-router.post('/me', function(req, res) {
+doctorRouter.post('/me', function(req, res) {
     res.json({success: true, message: req.decoded});
 });
-    
+    doctorRouter.post('/authenticate', function(req, res){
+        User.findOne({username: req.body.username}).select('email username password').exec(function(err, user){
+            if (err) throw err;
+            if(!user) {
+                res.json({success: false,mesage: 'Could not authenticate user'});
+            } else if(user) {
+                if(req.body.password) {
+              var validPassword =  user.comparePassword(req.body.password); }
+               else {
+                res.json({success: false,mesage: 'No password provided'});
+               }
+              if(!validPassword) {
+                  res.json({success: false, message: 'Could not authenticate password'});
+              } else {
+                res.json({success: true, message: 'user authenticated'});
+              }
+            
+            }
+        });
+    });
 
- return router;
- }
+ return doctorRouter;
+ };
