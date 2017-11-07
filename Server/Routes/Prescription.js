@@ -9,7 +9,7 @@ module.exports = function(router){
 	
 	//add appointment entery to the database http://localhost:port/api/appointments/addAppointment
 
-router.post("/addprescription",function(req, res, next) 
+prescriptionRouter.post("/addprescription",function(req, res, next) 
 {
     // check if variable exists or not
 	
@@ -34,7 +34,7 @@ else {
    });
 
     //delete prescription with the help of _id
-    router.get('/delete/:id', function(req,res, next){
+    prescriptionRouter.get('/delete/:id', function(req,res, next){
 		prescription.findOneAndRemove({_id: mongojs.ObjectId(req.params.id)}), (function(err){
         if(err)	res.json(err);
         else { res.json({success: 'true' ,message: 'prescription is removed'}); }
@@ -43,7 +43,7 @@ else {
      
     }); 
 
-    router.get('/findByID/:id', function(req,res, next){
+    prescriptionRouter.get('/findByID/:id', function(req,res, next){
         
 		prescription.findOne({_id:mongojs.ObjectId(req.params.id)}), function(err, prescriptions) {
             if(!err){ 
@@ -54,7 +54,7 @@ else {
             }
          });
         });
-       router.get('/findByDoctorID/:doctor_id', function(req,res){
+       prescriptionRouter.get('/findByDoctorID/:doctor_id', function(req,res){
             
                     prescription.findOne({doctor_id:req.id}, function(err, prescriptions) {
                         if(!err){ 
@@ -70,4 +70,4 @@ else {
     
 
    return router;   
-}
+};
