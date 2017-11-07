@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 
 
 
-module.exports = function(router1){
+module.exports = function(appointmentRouter){
     
 //add appointment entery to the database http://localhost:port/api/appointments/addAppointment
 appointmentRouter.post("/addAppointment", (req, res) => {
