@@ -8,10 +8,11 @@ var router = express.Router();
 var docterRouter = express.Router();
 var appointmentRouter = express.Router();
 var patientRouter = express.Router();
+var prescriptionRouter = express.Router();
 var doctorRoutes = require('./Server/Routes/doctorRoute')(doctorRouter);
 var appointmentRoutes = require('./Server/Routes/appointment')(appointmentRouter);
 var patientRoutes = require('./Server/Routes/patient')(patientRouter);
-var appRoutes = require('./Server/Routes/prescription')(prescriptionRouter);
+var prescriptionRoutes = require('./Server/Routes/prescription')(prescriptionRouter);
 var spareRoutes = require('./Server/Routes/doctor')(router);
 var path = require('path');
 
