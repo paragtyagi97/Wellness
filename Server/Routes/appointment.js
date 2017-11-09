@@ -33,7 +33,7 @@ appointmentRouter.post("/addAppointment", (req, res) => {
 
 
     //delete appointment with the help of _id
-    appointmentRouter.get('/delete/:id', function(req,res, next){
+    appointmentRouter.get('/deleteAppointment/:id', function(req,res, next){
 		Appointment.findOne({_id: mongojs.ObjectId(req.params.id)}).remove(function(err){
         if(err)	res.json(err);
         else { res.json({success: 'true' ,message: 'appointment is canceled'}); }
@@ -43,7 +43,7 @@ appointmentRouter.post("/addAppointment", (req, res) => {
     }); 
 
      //to retrieve on the basis of doctor_id
-    appointmentRouter.get('/retrieve/:id', function(req,res, next){
+    appointmentRouter.get('/retrieveAppointment/:id', function(req,res, next){
         
 		Appointment.find({doctor_id: req.params.id}, function(err, appointments) {
             if(!err){ 
