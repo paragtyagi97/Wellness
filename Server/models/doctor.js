@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var bcrypt = require('bcrypt-nodejs');
 var ID = require.uniqueID();
 
 console.log(ID.generate('/uniqueID/ext'));
@@ -7,8 +8,8 @@ console.log(ID.generate('/uniqueID/ext'));
 
 var DoctorSchema = new Schema({
     Name: { type: String, lowercase: true, required: true },
-    Phone: { type: Number, required: true },
-    Email: { type: String, required: true, lowercase: true, unique: true },
+    Phone: { type: String, required: true },
+    Email: { type: String, required: true, lowercase: true },
     UserName: { type: String, lowercase: true, required: true },
     Password: { type: String, required: true },
     ClinicName: { type: String, lowercase: true, required: true },
