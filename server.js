@@ -15,6 +15,7 @@ var patientRoutes = require('./Server/Routes/patient')(router);
 var prescriptionRoutes = require('./Server/Routes/prescription')(router);
 var accountsRoutes = require('./Server/Routes/accounts')(router);
 var tokenRoutes = require('./Server/Routes/token')(router);
+var searchRoutes = require('./Server/Routes/search')(router);
 
 var path = require('path');
 
@@ -28,6 +29,7 @@ app.use('/api/patient',patientRoutes);
 app.use('/api/doctor',doctorRoutes);
 app.use('/api/appointment',appointmentRoutes);
 app.use('/api/prescription', prescriptionRoutes);
+app.use('/api/search', searchRoutes);
 
 
 mongoose.Promise = global.Promise;
