@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 var PatientSchema = new Schema({
     username: {type: String},
-    name: {
+    pname: {
         firstName: {type: String,},
         middleName: {type: String},
         lastName: {type: String}
@@ -15,9 +15,9 @@ var PatientSchema = new Schema({
     gender: {type: String},
     dob: {type: String},
     contactNumber: {type: Number},
-    email: {type: String},
+    email: {type: String, unique:true},
 
-    address: {
+    paddress: {
             line1: String,
             line2: String,
             city: String,
@@ -41,10 +41,10 @@ var PatientSchema = new Schema({
               },
               
     responsible_person: {
-                           rname: String,
+                           name: String,
                            number: String,
                            relation: String,
-                           raddress: String
+                           address: String
                         },
     create_date: { type: Date, default: Date.now } 
                        
