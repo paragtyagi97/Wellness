@@ -61,6 +61,15 @@ PatientSchema.pre('save', function(next){
     });
     });
 
+PatientSchema.methods.hashpassword = function(password) {
+        var user= this;
+        bcrypt.hash(user.password,null,null,function(err, hash){
+            if (err) return next(err);
+           return user.password = hash;
+            
+        });
+      };
+
     PatientSchema.methods.comparePassword = function(password){
         return bcrypt.compareSync(password, this.password);
     };    
