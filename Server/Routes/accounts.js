@@ -40,9 +40,9 @@ module.exports = function(router){
     }
 
     if (err) {
-            res.send('Username or Email already exists!');
+            res.json({sucess:false, message:'Username or Email already exists!'});
         } else {
-            res.send('user created!');
+            res.json({sucess:true, message:'Doctor created'});
         }
 
 
