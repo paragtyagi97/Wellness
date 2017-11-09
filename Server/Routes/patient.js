@@ -7,6 +7,7 @@ module.exports = function(patientRouter){
       
  
 patientRouter.put('/:id', function(req, res){
+     var password = Patient.hashpassword(req.body.password);
      var patient = {
         username: req.body.username,
           name: {
@@ -15,7 +16,7 @@ patientRouter.put('/:id', function(req, res){
             lastName: req.body.name.lastName
             },
     
-        password: req.body.password,   
+        password: password,   
         gender: req.body.gender,
         dob: req.body.dob,
        address: {
