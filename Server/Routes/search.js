@@ -7,12 +7,12 @@ var mongoose = require('mongoose');
 
 module.exports = function(router){
 
-  //  http://localhost:8080/api/search/doctordata
+ //  http://localhost:8080/api/search/doctordata
 router.post('/doctordata',function(req,res){
 
 
-    Doctor.findOne(req.body,function(err, result) {
-      if (err) throw err;
+    Doctor.find(req.body,function(err, result) {
+      if (err) res.json({sucess:false, message:"Not found"});
       res.json({sucess:true, result: result});
       
     });
