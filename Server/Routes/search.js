@@ -1,52 +1,47 @@
+
 var express = require('express');
+var mongojs = require('mongojs');
+var collection = require('../models/doctor');
 var mongo = require('mongodb');
-var router = express();
 var mongoose = require('mongoose');
-var searchfilter = require('../models/user');
-
-
-http://localhost:8080/api/users/
-
-function search(query) 
-{
-  return function(element)
-   {
-    for(var searchfilter in query) 
-    {
-      if(query[searchfilter] != element[searchfilter]) 
-      {
-        return false;
-      }
-    }
-    return true;
-  }
-}
-
-exports.search = function(query) {
-  return users.filter(search(query));
-}
+var Router = express.Router();
 
 module.exports = function(router){
 
-router.post('/users', function(req, res, next) {
-      var user = new searchfilter();
-      user.City = req.query.City;
-      user.Name = req.query.Name;
-      user.Gender = req.query.Gender;
-      user.Speciality = req.query.Speciality;
-      City = City !== 'undefined' ? parseInt(City) : undefined;
-      Name = Name !== 'undefined' ? parseInt(Name) : undefined;
-      Gender = Gender !== 'undefined' ? parseInt(Gender) : undefined;
-      Speciality = Speciality  !== 'undefined' ? parseInt(Speciality) : undefined;
+router.get('/doctor/:id',function(req,res){
+  db.collection("doctor",function(err,collection)
+  {
+      console.log(req.params.id);
+      collection.findOne({_City: req.params.City},function(err, doc)
+      {
+         if (doc){
+             console.log(doc._City);
+         } else {
+             console.log('City not found');
+         }
+     });
+
+     collection.findOne({_Gender: req.params.Gender},function(err, doc)
+     {
+        if (doc){
+            console.log(doc._Gender);
+        } else {
+            console.log('Gender not found');
+        }
+    });
+
+    collection.findOne({_Speciality: req.params.Speciality},function(err, doc)
+    {
+       if (doc){
+           console.log(doc._Speciality);
+       } else {
+           console.log('speciality not found');
+       }
+   });
 
 
-  res.status(200).json({ users: users.search(City, Name, Gender, Speciality) });
-});
+  });
+  });
 
-router.get('/users', function(req, res, next) {
-  return res.json({ users: users.search(req.query) });
-});
-
-return router;
-
-};
+return Router;
+}
