@@ -9,14 +9,15 @@ var Router = express.Router();
 
 module.exports = function(router){
 
-router.get('/doctordata/:id',function(req,res){
+router.post('/doctordata',function(req,res){
        var search = {
           City: req.body.City,
           Gender: req.body.Gender,
-          Speciality: req.body.Speciality 
+          Speciality: req.body.Speciality, 
+          _id: req.body._id
        };
      // console.log(req.params.id);
-      collection.findOne({_id: req.params.id},search,function(err, doc)
+      collection.findOne({_id: req.body._id},search,function(err, doc)
       {
          if (doc){
              console.log(doc);
@@ -31,5 +32,5 @@ router.get('/doctordata/:id',function(req,res){
   });
   });
 
-return Router;
+return router;
 }
