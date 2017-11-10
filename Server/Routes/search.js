@@ -1,4 +1,5 @@
 
+
 var express = require('express');
 var mongojs = require('mongojs');
 var collection = require('../models/doctor');
@@ -8,36 +9,23 @@ var Router = express.Router();
 
 module.exports = function(router){
 
-router.get('/doctor/:id',function(req,res){
-  db.collection("doctor",function(err,collection)
-  {
-      console.log(req.params.id);
-      collection.findOne({_City: req.params.City},function(err, doc)
+router.get('/doctordata/:id',function(req,res){
+       var search = {
+          City: req.body.City,
+          Gender: req.body.Gender,
+          Speciality: req.body.Speciality 
+       };
+     // console.log(req.params.id);
+      collection.findOne({_id: req.params.id},search,function(err, doc)
       {
          if (doc){
-             console.log(doc._City);
+             console.log(doc);
+             res.json({sucess: true, model: doc});
          } else {
-             console.log('City not found');
+             console.log('not found');
+             res.json({sucess: false, message: "not found"});
          }
-     });
-
-     collection.findOne({_Gender: req.params.Gender},function(err, doc)
-     {
-        if (doc){
-            console.log(doc._Gender);
-        } else {
-            console.log('Gender not found');
-        }
-    });
-
-    collection.findOne({_Speciality: req.params.Speciality},function(err, doc)
-    {
-       if (doc){
-           console.log(doc._Speciality);
-       } else {
-           console.log('speciality not found');
-       }
-   });
+     
 
 
   });
