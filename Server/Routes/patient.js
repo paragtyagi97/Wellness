@@ -34,7 +34,9 @@ patientRouter.put('/updatePatient/:id', function(req, res){
           res.json({success: false,mesage: 'Could not find user'});
       } else if(user) {
           if(req.body.password) {
-        var validPassword =  user.comparePassword(req.body.password); }
+        var validPassword =  user.comparePassword(req.body.password); 
+       // var NewPassword =  user.hashPassword(req.body.newPassword);
+      }
          else {
           res.json({success: false,mesage: 'No password provided '});
          }
@@ -43,6 +45,11 @@ patientRouter.put('/updatePatient/:id', function(req, res){
         } else {
 
           var opts = { strict: false };
+          
+          var Newpassword = req.body.newPassword;
+          
+          // update it with hash
+          req.body.newPassword = bcrypt.hashSync(Newpassword); 
 
           Patient.update({username: req.body.username}, {password: req.body.newPassword} , opts, function(error) {
             if(error) {res.json({error:error});}
@@ -54,11 +61,26 @@ patientRouter.put('/updatePatient/:id', function(req, res){
 
 
 
-        
+         // res.json({success: true, message: 'user authenticated'});
         }
       
       }
   });
+
+
+
+
+
+    
+     
+ 
+     
+    
+     
+   
+   
+ 
+ });
 
 
 return patientRouter; 
