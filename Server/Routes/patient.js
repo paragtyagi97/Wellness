@@ -23,7 +23,7 @@ patientRouter.put('/updatePatient/:id', function(req, res){
   }
 
 });
-     patientRouter.post('/updatePatient/password', function(req, res){
+     patientRouter.post('/updatePassword', function(req, res){
   
    //  var username = req.body.username;
      var password = req.body.password;
