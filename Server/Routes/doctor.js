@@ -81,7 +81,7 @@ doctorRouter.post('/updatePassword', function(req, res){
             // update it with hash
             req.body.newPassword = bcrypt.hashSync(Newpassword); 
   
-            Patient.update({UserName: req.body.UserName}, {Password: req.body.newPassword} , opts, function(error) {
+            Doctor.update({UserName: req.body.UserName}, {Password: req.body.newPassword} , opts, function(error) {
               if(error) {res.json({error:error});}
               else {
               res.json({success:true,message: "Sucessfully updated"});
