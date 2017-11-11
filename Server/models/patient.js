@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('jsonwebtoken');
 
 
 var PatientSchema = new Schema({
-    username: {type: String},
+    username: {type: String, unique: true},
     pname: {
         firstName: {type: String,},
         middleName: {type: String},
@@ -15,7 +16,7 @@ var PatientSchema = new Schema({
     gender: {type: String},
     dob: {type: String},
     contactNumber: {type: Number},
-    email: {type: String, unique:true},
+    email: {type: String},
 
     paddress: {
             line1: String,
@@ -61,20 +62,29 @@ PatientSchema.pre('save', function(next){
     });
     });
 
-PatientSchema.methods.hashpassword = function(password) {
-        var user= this;
-        bcrypt.hash(user.password,null,null,function(err, hash){
-            if (err) return next(err);
-           return user.password = hash;
-            
-        });
-      };
+  
+    
+
+
 
     PatientSchema.methods.comparePassword = function(password){
         return bcrypt.compareSync(password, this.password);
-    };    
+    };  
+    
+    PatientSchema.methods.generateJwt = function() {
+        var expiry = new Date();
+        expiry.setDate(expiry.getDate() + 7);
+      
+        return jwt.sign({
+          _id: this._id,
+          email: this.email,
+          username: this.username,
+          exp: parseInt(expiry.getTime() / 1000),
+        }, "MY_SECRET"); 
+      };
 
 module.exports = mongoose.model('Patient', PatientSchema);
+
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
