@@ -16,13 +16,14 @@ doctorRouter.get('/deleteDoctor/:id', function(req,res, next){
 doctorRouter.put('/addExperience/:id', function(req, res){
     var doctor = {
        
-        experience: [
-            {from: req.body.experience.from},
-            {to: req.body.experience.to},
-            {hospital: req.body.experience.hospital},
-            {post: req.body.experience.post},
-            {description: req.body.experience.description}
-            ]               
+        experience: [{
+            from: req.body.experience.from,
+            to: req.body.experience.to,
+            hospital: req.body.experience.hospital,
+            post: req.body.experience.post,
+            description: req.body.experience.description
+        }]
+                           
     };
    var opts = { strict: false };
    Doctor.update({_id: mongojs.ObjectId(req.params.id)}, experience, opts, function(error) {
