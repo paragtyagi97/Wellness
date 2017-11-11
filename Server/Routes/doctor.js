@@ -58,7 +58,7 @@ doctorRouter.post('/updatePassword', function(req, res){
      //  var username = req.body.username;
        var Password = req.body.Password;
     
-       Doctor.findOne({username: req.body.UserName}).select('email username password').exec(function(err, user){
+       Doctor.findOne({UserName: req.body.UserName}).select('email username password').exec(function(err, user){
         if (err) throw err;
         if(!user) {
             res.json({success: false,mesage: 'Could not find user'});
