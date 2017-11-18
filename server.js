@@ -42,7 +42,7 @@ mongoose.connect('mongodb://localhost:27017/wellnes', function(err){
 });
 
 app.get('*', function(req, res){
-    res.sendFile(path.join(__dirname + '/Public/app/view/index.html'));
+    res.sendFile(path.join(__dirname + '/Public/app/view/login.html'));
 });
 
 
